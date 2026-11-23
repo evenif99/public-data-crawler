@@ -45,3 +45,19 @@ public-data-crawler/
 
 DB 접속 정보는 기본값 `crawler / crawler` (localhost:5432/crawler)이며,
 환경변수 `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`로 바꿀 수 있습니다.
+
+## 정책브리핑 보도자료 수집
+
+대상: [정책브리핑 보도자료](https://www.korea.kr/briefing/pressReleaseList.do)
+(robots.txt `User-agent: * Allow: /`, 공공누리 제1유형)
+
+- 수집 전에 robots.txt를 읽고, 허용되지 않으면 요청하지 않음
+- 요청 사이 최소 1.5초 간격 (`crawler.delay-millis`)
+- `newsId` 유니크 제약 + 저장 전 존재 확인으로 같은 글을 다시 받지 않음
+- 한 페이지가 전부 이미 저장된 글이면 다음 페이지로 넘어가지 않음
+
+| 메서드 | 주소 | 설명 |
+|---|---|---|
+| POST | `/api/crawl/korea-policy?maxPages=1` | 수동 수집 실행 (최대 10페이지), 결과 건수 반환 |
+| GET | `/api/press-releases?keyword=&ministry=&page=0&size=20` | 목록 (게시일 최신순) |
+| GET | `/api/press-releases/{id}` | 상세 (본문 포함) |

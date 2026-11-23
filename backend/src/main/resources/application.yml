@@ -14,3 +14,11 @@ spring:
 
 server:
   port: 8080
+
+crawler:
+  user-agent: "public-data-crawler/0.1 (+https://github.com/evenif99/public-data-crawler)"
+  timeout-millis: 10000
+  delay-millis: 1500        # 요청 사이 최소 간격
+  korea-policy:
+    base-url: ${KOREA_POLICY_BASE_URL:https://www.korea.kr}
+    max-pages: 1
