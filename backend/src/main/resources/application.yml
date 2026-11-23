@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: crawler
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/crawler}
+    username: ${DB_USERNAME:crawler}
+    password: ${DB_PASSWORD:crawler}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate.format_sql: true
+
+server:
+  port: 8080
